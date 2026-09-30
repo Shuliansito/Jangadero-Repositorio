@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         
-        if(pm.PlayerHealth<=0) { pm.playerClass.ResetStats(); StartGame(1); }
+
     }
 
     /// <summary>

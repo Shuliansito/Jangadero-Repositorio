@@ -44,75 +44,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
 
-        //Pause menu check
-        if (_pauseMenu.action.WasPressedThisFrame())
-        {
-            Debug.Log("Escape/Home apretado");
-            UpdateCursorState();
-            pauseUI.SetActive(_isPaused);
-        }
 
-        //Value of Health and Stamina sliders depending on player stats
-        _staminaSlider.value = _player.PlayerStamina;
-        _healthSlider.value = _player.PlayerHealth;
-
-        #region Stamina
-        //Check if stamina changed
-        if (_player.PlayerStamina != _lastStamina)
-        {
-            //Debug.Log("Desigualdad Stamina: "+_player.PlayerStamina+" /-/ "+_lastStamina);
-            StaminaTimer = 2.0f;
-            StaminaSliderGO.SetActive(true);
-        }
-
-        //Decrease stamina timer
-        if (StaminaTimer > 0)
-        {
-            StaminaTimer -= Time.deltaTime;
-        }
-        else
-        {
-            StaminaSliderGO.SetActive(false);
-        }
-
-        
-        _lastStamina = _player.PlayerStamina;
-
-        #endregion
-        if (_player.PlayerHealth != _lastHealth)
-        {
-           //Debug.Log("Desigualdad Vida: " + _player.PlayerHealth + " /-/ " + _lastHealth); 
-            HealthTimer = 5.0f;
-            HealthSliderGO.SetActive(true);
-        }
-        
-        if (HealthTimer > 0)
-        {
-            HealthTimer -= Time.deltaTime;
-        }
-        else
-        {
-            HealthSliderGO.SetActive(false);
-        }
-        _lastHealth = _player.PlayerHealth;
-
-
-        RectTransform staminaRect = StaminaSliderGO.GetComponent<RectTransform>();
-
-        if (HealthSliderGO.activeSelf)
-        {
-            staminaRect.anchoredPosition = new Vector2(
-                staminaRect.anchoredPosition.x,
-                -60
-            );
-        }
-        else
-        {
-            staminaRect.anchoredPosition = new Vector2(
-                staminaRect.anchoredPosition.x,
-                0
-            );
-        }
     }
 
     private void UpdateCursorState()
