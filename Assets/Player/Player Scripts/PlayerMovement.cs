@@ -12,15 +12,17 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     public PlayerClass playerClass = new(7f, 100f);
-    private InputActionReference playerMovement;
+    public InputActionReference playerMovement;
     private float movement;
+    [SerializeField]
+    private Rigidbody rb_player;
 
     
 
     void Awake()
     {
 
-        
+         movement = playerMovement.action.ReadValue<float>();
 
     }
 
@@ -35,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-
+        
     }
 
     private void UpdatePlayerStats()
