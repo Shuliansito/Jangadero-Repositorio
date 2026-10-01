@@ -15,20 +15,30 @@ public class PlayerMovement : MonoBehaviour
     public InputActionReference playerMovement;
     private float movement;
     [SerializeField]
-    private Rigidbody rb_player;
+    private GameObject rb_player;
+
+    [SerializeField]
+    private float rotationSpeed;
+    [SerializeField]
+    [Range(0f,20f)]
+    private float movementSpeed;
 
     
 
     void Awake()
     {
 
-         movement = playerMovement.action.ReadValue<float>();
+         
 
     }
 
     private void Update()
     {
-        
+        movement = playerMovement.action.ReadValue<float>();
+        transform.position=new Vector3(transform.position.x, transform.position.y, transform.position.z+movementSpeed*Time.deltaTime);
+
+        Debug.Log(playerMovement.action.enabled);
+        Debug.Log(movement);
     }
     void FixedUpdate()
     {
@@ -37,7 +47,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        
+        if (movement < 0) { transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y - rotationSpeed * Time.deltaTime, transform.rotation.z); }
+        else if (movement > 0) transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y + rotationSpeed*Time.deltaTime, transform.rotation.z);
+        else { transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z); }
+
     }
 
     private void UpdatePlayerStats()
