@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -35,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         movement = playerMovement.action.ReadValue<float>();
-        transform.position=new Vector3(transform.position.x, transform.position.y, transform.position.z+movementSpeed*Time.deltaTime);
+        transform.position += transform.forward * movementSpeed * Time.deltaTime;
 
         Debug.Log(playerMovement.action.enabled);
         Debug.Log(movement);
@@ -47,8 +48,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        if (movement < 0) { transform.Rotate(0, rotationSpeed * Time.deltaTime, 0); }
-        else if (movement > 0) transform.Rotate(0, -rotationSpeed * Time.deltaTime, 0);
+        if (movement < 0) { transform.Rotate(0, -rotationSpeed * Time.deltaTime, 0); }
+        else if (movement > 0) transform.Rotate(0, +rotationSpeed * Time.deltaTime, 0);
         
 
     }
