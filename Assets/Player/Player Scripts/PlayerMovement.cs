@@ -47,31 +47,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        if (movement < 0) { transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y - rotationSpeed * Time.deltaTime, transform.rotation.z); }
-        else if (movement > 0) transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y + rotationSpeed*Time.deltaTime, transform.rotation.z);
-        else { transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z); }
+        if (movement < 0) { transform.Rotate(0, rotationSpeed * Time.deltaTime, 0); }
+        else if (movement > 0) transform.Rotate(0, -rotationSpeed * Time.deltaTime, 0);
+        
 
     }
 
-    private void UpdatePlayerStats()
-    {
 
-    }
-
-    private void CrouchLogic()
-    {
-
-    }
-
-    private void RunningLogic()
-    {
-
-    }
-
-    private void MovementLogic()
-    {
-
-    }
 
 
 
