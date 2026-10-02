@@ -57,12 +57,26 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer();
     }
 
+    
     private void MovePlayer()
     {
-        if (movement < 0) { transform.Rotate(0, -rotationSpeed * Time.deltaTime, 0); }
-        else if (movement > 0) transform.Rotate(0, +rotationSpeed * Time.deltaTime, 0);
-        
+        if (movement < 0)
+        {
+            transform.Rotate(0, -rotationSpeed * Time.deltaTime, 0);
+        }
+        else if (movement > 0)
+        {
+            transform.Rotate(0, +rotationSpeed * Time.deltaTime, 0);
+        }
 
+
+        float angle = Mathf.DeltaAngle(0f, transform.eulerAngles.y);
+        angle = Mathf.Clamp(angle, -90f, 90f);
+
+        Vector3 euler = transform.eulerAngles;
+        euler.y = angle;
+
+        transform.rotation = Quaternion.Euler(euler);
     }
     private void PlayerAccelerate(float speed)
     {
