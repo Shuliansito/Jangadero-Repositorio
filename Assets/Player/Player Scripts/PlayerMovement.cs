@@ -20,12 +20,13 @@ public class PlayerMovement : MonoBehaviour
     private float movement;
     [SerializeField]
     private GameObject rb_player;
+    [SerializeField]
+    private Camera cam;
 
     [SerializeField]
     private float rotationSpeed;
-    [SerializeField]
     [Range(0f,50f)]
-    private float movementSpeed;
+    public float movementSpeed;
 
 
     
@@ -40,13 +41,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("Original: "+movementSpeed);
         movement = playerMovement.action.ReadValue<float>();
-        PlayerAccelerate(1.5f);
+        PlayerAccelerate(5f);
+
 
         transform.position += transform.forward * movementSpeed * Time.deltaTime;
 
-        Debug.Log(playerMovement.action.enabled);
-        Debug.Log(movement);
+
+        Debug.Log(playerRun.action.enabled);
+        Debug.Log(movementSpeed);
     }
     void FixedUpdate()
     {
@@ -64,13 +68,16 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log("Detecting acceleration");
         
-        if (playerRun.action.WasPressedThisFrame())
+        if (playerRun.action.IsPressed())
         {
-            movementSpeed*=speed;
-            Debug.Log("Running");
+            this.movementSpeed=25f;
+
+            Debug.Log("New Movement Speed: "+ movementSpeed);
             isRunning = true;
+            cam.fieldOfView = 75f;
         }
-        else { isRunning = false; movementSpeed=20;}
+        else {this.movementSpeed = 20f; isRunning = false; cam.fieldOfView = 70f; }
+
     }
 
 
