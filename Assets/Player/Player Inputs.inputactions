@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "New action1",
+                    "name": "Acelerar",
                     "type": "Button",
                     "id": "a5dd64d4-37bf-4527-a564-3a6ddf2c37d1",
                     "expectedControlType": "Button",
@@ -26,18 +26,7 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "547fd758-c094-4eb7-b027-d2721b0de574",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "1D Axis",
+                    "name": "AD",
                     "id": "85267682-ad09-4635-ad20-a3ffd472e6d3",
                     "path": "1DAxis",
                     "interactions": "",
@@ -68,6 +57,50 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "Flechas",
+                    "id": "ad6922b2-14e3-4303-88a5-18a3d1663165",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "71f56738-68bd-447a-8d71-9a979313730a",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "d2516b3d-5890-402f-9a99-b3a1ab32be2c",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "547fd758-c094-4eb7-b027-d2721b0de574",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Acelerar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

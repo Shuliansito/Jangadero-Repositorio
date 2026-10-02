@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private InputActionReference playerMovement;
+    [SerializeField] private InputActionReference playerRun;
 
 
 
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
     {
         InputSystem.settings.maxEventBytesPerUpdate = 0;
         playerMovement.action.Enable();
+        playerRun.action.Enable();
 
     }
     private void Start()
