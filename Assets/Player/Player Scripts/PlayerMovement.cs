@@ -41,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+
+        //TODO: Limpiar el update moviendo estas lineas a procesos apartes.
         Debug.Log("Original: "+movementSpeed);
         movement = playerMovement.action.ReadValue<float>();
         PlayerAccelerate(5f);
@@ -60,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
     
     private void MovePlayer()
     {
+
+        //TODO: Agregar smooth al movimiento lateral 
         if (movement < 0)
         {
             transform.Rotate(0, -rotationSpeed * Time.deltaTime, 0);
@@ -69,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
             transform.Rotate(0, +rotationSpeed * Time.deltaTime, 0);
         }
 
-
+        //TODO: Sacar estos limites y hacer un sistema mejorado
         float angle = Mathf.DeltaAngle(0f, transform.eulerAngles.y);
         angle = Mathf.Clamp(angle, -90f, 90f);
 
@@ -82,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log("Detecting acceleration");
         
+        //TODO: Mejorar el cambio de FOV al acelerar, algo mas dinamico
         if (playerRun.action.IsPressed())
         {
             this.movementSpeed=25f;
