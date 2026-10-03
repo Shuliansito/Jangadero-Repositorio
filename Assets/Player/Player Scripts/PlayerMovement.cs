@@ -13,22 +13,28 @@ using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public PlayerClass playerClass = new(7f, 100f);
-    public InputActionReference playerMovement;
-    public InputActionReference playerRun;
-    [SerializeField] public bool isRunning;
-    private float movement;
     [SerializeField]
     private GameObject rb_player;
-    [SerializeField]
-    private Camera cam;
-
+    [Header("Movimiento Jugador")]
+    public InputActionReference playerMovement;
+    public InputActionReference playerRun;
+    public bool isRunning;
+    private float movement;
+    [Tooltip("Bool que decide si puede o no moverse [SE PUEDE CAMBIAR DESDE CUALQUIER SCRIPT]")]
+    public bool canMove;
     [SerializeField]
     private float rotationSpeed;
     [SerializeField]
     private float previusRotation;
-    [Range(0f,50f)]
+    [Range(0f, 50f)]
     public float movementSpeed;
+
+    [Header("Camara")]
+    [SerializeField]
+    private Camera cam;
+
+
+
 
 
     
@@ -64,14 +70,10 @@ public class PlayerMovement : MonoBehaviour
     
     private void MovePlayer()
     {
-        //TODO: Agregar smooth al movimiento lateral 
-
-
         MovementLogic();
 
-
-
         //TODO: Sacar estos limites y hacer un sistema mejorado
+        #region LIMITES LATERALES
         float angle = Mathf.DeltaAngle(0f, transform.eulerAngles.y);
         angle = Mathf.Clamp(angle, -90f, 90f);
 
@@ -79,10 +81,12 @@ public class PlayerMovement : MonoBehaviour
         euler.y = angle;
 
         transform.rotation = Quaternion.Euler(euler);
+        #endregion
     }
 
     private void MovementLogic()
     {
+        if (!canMove) return;
         //Uso de esta variable para no repetir codigo (Visible en antiguos comits)
         float newRotation=0;
 
@@ -111,18 +115,34 @@ public class PlayerMovement : MonoBehaviour
 
     private void PlayerAccelerate(float speed)
     {
+
+        float FOVSmoothness = 5f;
         Debug.Log("Detecting acceleration");
-        
+
+        float newCameraField;
         //TODO: Mejorar el cambio de FOV al acelerar, algo mas dinamico
         if (playerRun.action.IsPressed())
         {
-            this.movementSpeed=25f;
+            this.movementSpeed = 25f;
 
-            Debug.Log("New Movement Speed: "+ movementSpeed);
+            Debug.Log("New Movement Speed: " + movementSpeed);
             isRunning = true;
-            cam.fieldOfView = 75f;
+            //Movimiento suave de camara
+            newCameraField = cam.fieldOfView += FOVSmoothness * Time.deltaTime;
+            newCameraField = Mathf.Clamp(newCameraField, 70, 75);
+            cam.fieldOfView = newCameraField;
+
         }
-        else {this.movementSpeed = 20f; isRunning = false; cam.fieldOfView = 70f; }
+        else
+        {
+            this.movementSpeed = 20f;
+            isRunning = false;
+            newCameraField = cam.fieldOfView -= FOVSmoothness * Time.deltaTime;
+            newCameraField = Mathf.Clamp(newCameraField, 70, 75);
+
+            cam.fieldOfView = newCameraField;
+        }
+
 
     }
 
