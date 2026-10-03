@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private float rotationSpeed;
+    [SerializeField]
+    private float previusRotation;
     [Range(0f,50f)]
     public float movementSpeed;
 
@@ -36,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
-
+    
 
 
     private void Update()
@@ -62,16 +64,12 @@ public class PlayerMovement : MonoBehaviour
     
     private void MovePlayer()
     {
-
         //TODO: Agregar smooth al movimiento lateral 
-        if (movement < 0)
-        {
-            transform.Rotate(0, -rotationSpeed * Time.deltaTime, 0);
-        }
-        else if (movement > 0)
-        {
-            transform.Rotate(0, +rotationSpeed * Time.deltaTime, 0);
-        }
+
+
+        MovementLogic();
+
+
 
         //TODO: Sacar estos limites y hacer un sistema mejorado
         float angle = Mathf.DeltaAngle(0f, transform.eulerAngles.y);
@@ -82,6 +80,35 @@ public class PlayerMovement : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(euler);
     }
+
+    private void MovementLogic()
+    {
+        //Uso de esta variable para no repetir codigo (Visible en antiguos comits)
+        float newRotation=0;
+
+        if (movement < 0)
+        {
+            rotationSpeed = 75;
+            newRotation = -rotationSpeed;
+            previusRotation = -1;
+        }
+        else if (movement > 0)
+        {
+            rotationSpeed = 75;
+            newRotation = +rotationSpeed;
+            previusRotation = 1;
+        }
+        //Smooth movement
+        else
+        {   
+            rotationSpeed -= 150 * Time.deltaTime;
+            rotationSpeed = Mathf.Clamp(rotationSpeed, 0, 75);
+            if (previusRotation == -1) newRotation = -rotationSpeed;
+            if (previusRotation == 1) newRotation = +rotationSpeed;
+        }
+        transform.Rotate(0, newRotation * Time.deltaTime, 0);
+    }
+
     private void PlayerAccelerate(float speed)
     {
         Debug.Log("Detecting acceleration");
