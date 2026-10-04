@@ -13,11 +13,15 @@ using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
+    #region Variables
     [SerializeField]
     private GameObject rb_player;
+    
     [Header("Movimiento Jugador")]
-    public InputActionReference playerMovement;
-    public InputActionReference playerRun;
+    [SerializeField]
+    private InputActionReference playerMovement;
+    [SerializeField]
+    private InputActionReference playerRun;
     public bool isRunning;
     private float movement;
     [Tooltip("Bool que decide si puede o no moverse [SE PUEDE CAMBIAR DESDE CUALQUIER SCRIPT]")]
@@ -32,33 +36,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("Camara")]
     [SerializeField]
     private Camera cam;
-
-
-
-
-
-    
-
-    void Awake()
-    {
-
-
-    }
-    
-
+    #endregion
 
     private void Update()
     {
-
-        //TODO: Limpiar el update moviendo estas lineas a procesos apartes.
-        Debug.Log("Original: "+movementSpeed);
         movement = playerMovement.action.ReadValue<float>();
         PlayerAccelerate(5f);
-
-
         transform.position += transform.forward * movementSpeed * Time.deltaTime;
-
-
         Debug.Log(playerRun.action.enabled);
         Debug.Log(movementSpeed);
     }
@@ -83,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(euler);
         #endregion
     }
+
 
     private void MovementLogic()
     {
@@ -117,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         float FOVSmoothness = 5f;
-        Debug.Log("Detecting acceleration");
+
 
         float newCameraField;
         //TODO: Mejorar el cambio de FOV al acelerar, algo mas dinamico
@@ -125,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
         {
             this.movementSpeed = 25f;
 
-            Debug.Log("New Movement Speed: " + movementSpeed);
+
             isRunning = true;
             //Movimiento suave de camara
             newCameraField = cam.fieldOfView += FOVSmoothness * Time.deltaTime;

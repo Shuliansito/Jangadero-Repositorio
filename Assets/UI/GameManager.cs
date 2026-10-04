@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private InputActionReference playerMovement;
     [SerializeField] private InputActionReference playerRun;
+    [SerializeField] private InputActionReference playerJump;
 
 
 
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
         InputSystem.settings.maxEventBytesPerUpdate = 0;
         playerMovement.action.Enable();
         playerRun.action.Enable();
+        playerJump.action.Enable();
 
     }
     private void Start()
