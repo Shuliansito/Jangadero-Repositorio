@@ -15,27 +15,50 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Variables
     [SerializeField]
+
     private GameObject rb_player;
+
     
     [Header("Movimiento Jugador")]
+
     [SerializeField]
+
     private InputActionReference playerMovement;
+
     [SerializeField]
+
     private InputActionReference playerRun;
+
     public bool isRunning;
+
     private float movement;
+
     [Tooltip("Bool que decide si puede o no moverse [SE PUEDE CAMBIAR DESDE CUALQUIER SCRIPT]")]
+
     public bool canMove;
+
     [SerializeField]
+
     private float rotationSpeed;
+
     [SerializeField]
+
     private float previusRotation;
+
     [Range(0f, 50f)]
+
     public float movementSpeed;
+    [Range(0f, 200f)]
+
+    public float movementDrift;
+
 
     [Header("Camara")]
+
     [SerializeField]
+
     private Camera cam;
+
     #endregion
 
     private void Update()
@@ -90,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
         //Smooth movement
         else
         {   
-            rotationSpeed -= 150 * Time.deltaTime;
+            rotationSpeed -= movementDrift * Time.deltaTime;
             rotationSpeed = Mathf.Clamp(rotationSpeed, 0, 75);
             if (previusRotation == -1) newRotation = -rotationSpeed;
             if (previusRotation == 1) newRotation = +rotationSpeed;

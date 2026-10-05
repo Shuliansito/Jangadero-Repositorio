@@ -28,13 +28,10 @@ public class PlayerJump : MonoBehaviour
 
     private Rigidbody rb_player;
 
-
     private void Start()
     {
         rb_player = GetComponent<Rigidbody>();
     }
-
-
     private void Update()
     {
         isOnGround = Physics.CheckSphere(
@@ -51,8 +48,6 @@ public class PlayerJump : MonoBehaviour
             }
         }
     }
-
-
     private void FixedUpdate()
     {
         if (isJumping)
