@@ -8,6 +8,10 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public GameObject _selector;
+    public GameObject _mainMenuButtons;
+    public GameObject _settingsMenu;
+
+
     private void Start()
     {
         if (Time.timeScale == 0.0f)
@@ -24,5 +28,17 @@ public class MainMenu : MonoBehaviour
     public void OnExitPressed()
     {
         Application.Quit();
+    }
+
+    public void OnSettingsPressed()
+    {
+        _mainMenuButtons.SetActive(false);
+        _settingsMenu.SetActive(true);
+    }
+
+    public void OnExitSettings()
+    {
+        _settingsMenu.SetActive(false);
+        _mainMenuButtons.SetActive(true);
     }
 }
