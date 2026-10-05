@@ -15,18 +15,13 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Variables
     [SerializeField]
-
     private GameObject rb_player;
 
-    
     [Header("Movimiento Jugador")]
-
     [SerializeField]
-
     private InputActionReference playerMovement;
 
     [SerializeField]
-
     private InputActionReference playerRun;
 
     public bool isRunning;
@@ -38,19 +33,24 @@ public class PlayerMovement : MonoBehaviour
     public bool canMove;
 
     [SerializeField]
-
-    private float rotationSpeed;
-
-    [SerializeField]
-
     private float previusRotation;
 
+    [SerializeField]
+    [Range(0f, 75f)]
+    private float rotationSpeed;
+
     [Range(0f, 50f)]
-
     public float movementSpeed;
-    [Range(0f, 200f)]
 
+    [SerializeField]
+    [Range(0f, 75f)]
+    float newRotation = 0;
+
+    [Range(0f, 200f)]
     public float movementDrift;
+
+    [Range(0f, 100f)]
+    public float movementDrag;
 
 
     [Header("Camara")]
@@ -66,8 +66,6 @@ public class PlayerMovement : MonoBehaviour
         movement = playerMovement.action.ReadValue<float>();
         PlayerAccelerate(5f);
         transform.position += transform.forward * movementSpeed * Time.deltaTime;
-        Debug.Log(playerRun.action.enabled);
-        Debug.Log(movementSpeed);
     }
     void FixedUpdate()
     {
@@ -95,32 +93,33 @@ public class PlayerMovement : MonoBehaviour
     private void MovementLogic()
     {
         if (!canMove) return;
-        //Uso de esta variable para no repetir codigo (Visible en antiguos comits)
-        float newRotation=0;
 
         if (movement < 0)
         {
-            rotationSpeed = 75;
+            rotationSpeed += movementDrag * Time.deltaTime;
+            rotationSpeed = Mathf.Clamp(rotationSpeed, 0, 75);
             newRotation = -rotationSpeed;
             previusRotation = -1;
         }
         else if (movement > 0)
         {
-            rotationSpeed = 75;
-            newRotation = +rotationSpeed;
+            rotationSpeed += movementDrag * Time.deltaTime;
+            rotationSpeed = Mathf.Clamp(rotationSpeed, 0, 75);
+            newRotation = rotationSpeed;
             previusRotation = 1;
         }
-        //Smooth movement
         else
-        {   
+        {
             rotationSpeed -= movementDrift * Time.deltaTime;
             rotationSpeed = Mathf.Clamp(rotationSpeed, 0, 75);
+
             if (previusRotation == -1) newRotation = -rotationSpeed;
-            if (previusRotation == 1) newRotation = +rotationSpeed;
+            if (previusRotation == 1) newRotation = rotationSpeed;
         }
+
+        Debug.Log(newRotation);
         transform.Rotate(0, newRotation * Time.deltaTime, 0);
     }
-
     private void PlayerAccelerate(float speed)
     {
 
@@ -153,9 +152,5 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
-
-
-
-
 
 }

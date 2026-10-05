@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnStartPressed()
     {
-        SceneManager.LoadScene(sceneName: "Prototype Map");
+        SceneManager.LoadScene(sceneName: "Nivel1");
     }
     public void OnExitPressed()
     {
