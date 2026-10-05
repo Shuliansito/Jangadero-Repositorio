@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     public GameObject _selector;
     public GameObject _mainMenuButtons;
     public GameObject _settingsMenu;
+    public GameObject _levelsMenu;
 
 
     private void Start()
@@ -40,5 +41,16 @@ public class MainMenu : MonoBehaviour
     {
         _settingsMenu.SetActive(false);
         _mainMenuButtons.SetActive(true);
+    }
+
+    public void OnLevelSelectorExit()
+    {
+        _levelsMenu.SetActive(false);
+        _mainMenuButtons.SetActive(true);
+    }
+    public void OnLevelSelectorEnter()
+    {
+        _mainMenuButtons.SetActive(false);
+        _levelsMenu.SetActive(true);
     }
 }
