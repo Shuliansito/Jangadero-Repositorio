@@ -116,8 +116,6 @@ public class PlayerMovement : MonoBehaviour
             if (previusRotation == -1) newRotation = -rotationSpeed;
             if (previusRotation == 1) newRotation = rotationSpeed;
         }
-
-        Debug.Log(newRotation);
         transform.Rotate(0, newRotation * Time.deltaTime, 0);
     }
     private void PlayerAccelerate(float speed)

@@ -3,8 +3,8 @@ using UnityEngine.InputSystem;
 
 public class MouseLook : MonoBehaviour
 {
-    public float mouseSensitivity = 0.1f;
-    public float stickSensitivity = 100f;
+    public float mouseSensitivity;
+    public float stickSensitivity;
     float mouseX;
     float mouseY;
 
