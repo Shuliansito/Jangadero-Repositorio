@@ -29,7 +29,7 @@ public class MainMenu : MonoBehaviour
 
         InputSystem.ResetHaptics();
 
-        configPath = Path.Combine(Application.persistentDataPath, "Config.txt");
+        configPath = Path.Combine(Application.persistentDataPath, "Sensitivity.txt");
 
         LoadSettings();
 
