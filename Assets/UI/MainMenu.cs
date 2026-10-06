@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     public GameObject _mainMenuButtons;
     public GameObject _settingsMenu;
     public GameObject _levelsMenu;
+    public GameObject _controllersMenu;
 
     [Header("Settings Sliders")]
     public Slider _mouseSense;
@@ -43,6 +44,16 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(sceneName: "Nivel1");
     }
 
+    public void OnControllersEnter() 
+    {
+        _settingsMenu.SetActive(false);
+        _controllersMenu.SetActive(true);
+    }
+    public void OnControllersExit() 
+    {
+        _settingsMenu.SetActive(true);
+        _controllersMenu.SetActive(false);
+    }
     public void OnExitPressed()
     {
         SaveSettings();
@@ -60,6 +71,7 @@ public class MainMenu : MonoBehaviour
         SaveSettings();
 
         _settingsMenu.SetActive(false);
+        _controllersMenu.SetActive(false);
         _mainMenuButtons.SetActive(true);
     }
 
