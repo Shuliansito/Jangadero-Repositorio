@@ -8,22 +8,29 @@ using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour
 {
-
-    public GameObject _pauseMenuButtons;
-    public GameObject _settingsMenu;
-    public GameObject _winCanva;
+    [Header ("UI and Audio")]
+    [SerializeField] private GameObject _pauseMenuButtons;
+    [SerializeField] private GameObject _settingsMenu;
+    [SerializeField] private GameObject _winCanva;
+    [SerializeField] private GameObject _audioManager;
     private string configPath;
+
     private string playerDataPath;
-    
+    [Space(5)]
+    [Header ("Camera controll")]
     [SerializeField] private MouseLook camControll;
 
+    [Space(5)]
+    [Header("Pause Menu inputs")]
     [SerializeField] private InputActionReference pauseMenuButton;
-
-    public bool isOnPauseMenu;
-
+     public bool isOnPauseMenu;
+   
+    [Space(5)]
+    [Header("Sensitivity")]
     public float _mouseSensitivity;
     public float _joystickSensitivity;
 
+    [Space(5)]
     [Header("Settings Sliders")]
     public Slider _mouseSense;
     public Slider _joystickSense;
@@ -62,6 +69,7 @@ public class GameUIManager : MonoBehaviour
         _winCanva.SetActive(true);
         pauseMenuButton.action.Disable();
         Time.timeScale = 0f;
+        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         File.WriteAllText(playerDataPath, levelCompleted.ToString() );
     }
@@ -74,6 +82,8 @@ public class GameUIManager : MonoBehaviour
             ChangePauseState();
         }
 
+        _audioManager.SetActive(Time.timeScale>0);
+
     }
 
     private void ChangePauseState()
@@ -82,6 +92,7 @@ public class GameUIManager : MonoBehaviour
         _pauseMenuButtons.SetActive(isOnPauseMenu);
 
         Time.timeScale = isOnPauseMenu ? 0f : 1f;
+
         Cursor.lockState = isOnPauseMenu ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = isOnPauseMenu;
     }
