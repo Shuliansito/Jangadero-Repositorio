@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - ground
+  - Dock
+  - Dock Level 1
   layers:
   - Default
   - TransparentFX

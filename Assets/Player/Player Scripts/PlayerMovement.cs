@@ -151,4 +151,10 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    public void PlayerReset()
+    {
+        transform.position = new Vector3(25, 3, 3);
+        transform.rotation = new Quaternion(0, 0, 0, 1);
+
+    }
 }

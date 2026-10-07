@@ -11,7 +11,10 @@ public class GameUIManager : MonoBehaviour
 
     public GameObject _pauseMenuButtons;
     public GameObject _settingsMenu;
+    public GameObject _winCanva;
     private string configPath;
+    private string playerDataPath;
+    
     [SerializeField] private MouseLook camControll;
 
     [SerializeField] private InputActionReference pauseMenuButton;
@@ -28,10 +31,9 @@ public class GameUIManager : MonoBehaviour
     private void Start()
     {
         configPath = Path.Combine(Application.persistentDataPath, "Sensitivity.txt");
+        playerDataPath = Path.Combine(Application.persistentDataPath, "PlayerData.txt");
 
         LoadSettings();
-
-
     }
     private void LoadSettings()
     {
@@ -53,6 +55,15 @@ public class GameUIManager : MonoBehaviour
             camControll.mouseSensitivity = _mouseSensitivity;
             camControll.stickSensitivity = _joystickSensitivity;
         }
+    }
+
+    public void PlayerWin(int levelCompleted)
+    {
+        _winCanva.SetActive(true);
+        pauseMenuButton.action.Disable();
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
+        File.WriteAllText(playerDataPath, levelCompleted.ToString() );
     }
 
     // Update is called once per frame
