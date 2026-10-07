@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class GameUIManager : MonoBehaviour
 {
 
-    private bool canOpenPauseMenu = true;
+    public bool canOpenPauseMenu = true;
     [Header("Player Transform")]
     [SerializeField] private Transform _playerTransform;
     [Header ("UI and Audio")]
@@ -27,7 +27,7 @@ public class GameUIManager : MonoBehaviour
     [Space(5)]
     [Header("Pause Menu inputs")]
     [SerializeField] private InputActionReference pauseMenuButton;
-     public bool isOnPauseMenu;
+    public bool isOnPauseMenu;
    
     [Space(5)]
     [Header("Sensitivity")]
@@ -70,13 +70,13 @@ public class GameUIManager : MonoBehaviour
 
     public void PlayerWin(int levelCompleted)
     {
-        canOpenPauseMenu=false;
+   
         _winCanva.SetActive(true);
-        pauseMenuButton.action.Disable();
         Time.timeScale = 0f;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         File.WriteAllText(playerDataPath, levelCompleted.ToString() );
+        canOpenPauseMenu = false;
     }
 
     // Update is called once per frame
@@ -84,6 +84,7 @@ public class GameUIManager : MonoBehaviour
     {
         if (pauseMenuButton.action.WasPressedThisFrame()&&canOpenPauseMenu)
         {
+
             ChangePauseState();
         }
 
@@ -93,6 +94,7 @@ public class GameUIManager : MonoBehaviour
 
     private void ChangePauseState()
     {
+        
         isOnPauseMenu = !isOnPauseMenu;
         _pauseMenuButtons.SetActive(isOnPauseMenu);
 
@@ -110,13 +112,14 @@ public class GameUIManager : MonoBehaviour
 
     public void OnPlayAgain()
     {
-        canOpenPauseMenu = true;
+
         _winCanva.SetActive(false);
         Time.timeScale = 1.0f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible= false;
         _playerTransform.position = new Vector3(20, 3, 3);
         _playerTransform.rotation = new Quaternion(0, 0, 0, 1);
+        canOpenPauseMenu = true;
 
     }
     public void OnSettingsOpen()
