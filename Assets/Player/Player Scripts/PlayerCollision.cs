@@ -15,7 +15,7 @@ public class PlayerCollision : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("ground"))
+        if (collision.gameObject.CompareTag("ground") || collision.gameObject.CompareTag("Obstaculos"))
         {
             mMovement.PlayerReset();
         }

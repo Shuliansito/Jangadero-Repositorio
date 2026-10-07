@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 public class GameUIManager : MonoBehaviour
 {
+
+    private bool canOpenPauseMenu = true;
+    [Header("Player Transform")]
+    [SerializeField] private Transform _playerTransform;
     [Header ("UI and Audio")]
     [SerializeField] private GameObject _pauseMenuButtons;
     [SerializeField] private GameObject _settingsMenu;
@@ -66,6 +70,7 @@ public class GameUIManager : MonoBehaviour
 
     public void PlayerWin(int levelCompleted)
     {
+        canOpenPauseMenu=false;
         _winCanva.SetActive(true);
         pauseMenuButton.action.Disable();
         Time.timeScale = 0f;
@@ -77,7 +82,7 @@ public class GameUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pauseMenuButton.action.WasPressedThisFrame())
+        if (pauseMenuButton.action.WasPressedThisFrame()&&canOpenPauseMenu)
         {
             ChangePauseState();
         }
@@ -103,7 +108,17 @@ public class GameUIManager : MonoBehaviour
     }
 
 
+    public void OnPlayAgain()
+    {
+        canOpenPauseMenu = true;
+        _winCanva.SetActive(false);
+        Time.timeScale = 1.0f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible= false;
+        _playerTransform.position = new Vector3(20, 3, 3);
+        _playerTransform.rotation = new Quaternion(0, 0, 0, 1);
 
+    }
     public void OnSettingsOpen()
     {
         _settingsMenu.SetActive(true);
